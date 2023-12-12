@@ -3,6 +3,9 @@ package Algorithm;
 import java.io.*;
 import java.util.Arrays;
 
+/**
+ * I acknowledge that I am aware of the academic integrity guidelines of this course, and that I worked on this assignment independently without any unauthorized help
+ */
 public class HelpingFunctions {
 
     private final static String ID = "20011889";

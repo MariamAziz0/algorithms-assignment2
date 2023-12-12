@@ -4,6 +4,9 @@ import Algorithm.ActivitySelection;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
+/**
+ * I acknowledge that I am aware of the academic integrity guidelines of this course, and that I worked on this assignment independently without any unauthorized help
+ */
 public class TestCases {
 
     @Test
@@ -74,4 +77,19 @@ public class TestCases {
         assertEquals(8, ActivitySelection.getMaxWeight(activities));
 
     }
+
+    @Test
+    public void test6() {
+
+        int[][] activities = new int[][] {
+                {1, 3, 10},
+                {2, 4, 15},
+                {4, 6, 10},
+                {3, 5, 15}
+        };
+
+        assertEquals(25, ActivitySelection.getMaxWeight(activities));
+
+    }
+
 }
