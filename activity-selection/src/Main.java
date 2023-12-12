@@ -1,5 +1,9 @@
+import Algorithm.ActivitySelection;
+import Algorithm.HelpingFunctions;
+
 public class Main {
     public static void main(String[] args) {
+
         String filePath = "";
 
         if(args.length > 0)
@@ -16,7 +20,7 @@ public class Main {
             System.exit(-1);
         }
 
-        int maxProfit = ActivitySelection.getMaxWeightNSquared(activities);
+        int maxProfit = ActivitySelection.getMaxWeight(activities);
 
         String outputPath = HelpingFunctions.getNameOfOutputFile(filePath);
 

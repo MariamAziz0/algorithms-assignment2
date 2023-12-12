@@ -1,8 +1,10 @@
+package Algorithm;
+
 import java.util.*;
 
 public class ActivitySelection {
 
-    public static int getMaxWeightNSquared(int[][] activities) {
+    public static int getMaxWeight(int[][] activities) {
 
         HelpingFunctions.sortActivities(activities);
 
