@@ -1,11 +1,10 @@
-package helping_functions;
-
 import java.io.*;
-import java.util.*;
+import java.util.Arrays;
 
-public class ReadInput {
+public class HelpingFunctions {
 
     public static int[][] getInput(String filePath) {
+
         File inputFile = new File(filePath);
 
         if (!inputFile.exists()) {
@@ -41,6 +40,7 @@ public class ReadInput {
             System.err.println("Error reading the file: " + e.getMessage());
             return null;
         }
+
     }
 
     public static void printArray(int[][] array) {
@@ -51,6 +51,24 @@ public class ReadInput {
             System.out.println();
         }
         System.out.println();
+
+    }
+
+    public void printArray(int[] array) {
+
+        for (int i = 0 ; i < array.length ; i++) {
+            System.out.print(array[i] + " ");
+        }
+        System.out.println();
+
+    }
+
+    public static void sortActivities(int[][] activities) {
+
+        Arrays.sort(activities, (a, b) -> {
+            int compareFirstElement = Integer.compare(a[0], b[0]);
+            return compareFirstElement == 0 ? Integer.compare(a[1], b[1]) : compareFirstElement;
+        });
 
     }
 
