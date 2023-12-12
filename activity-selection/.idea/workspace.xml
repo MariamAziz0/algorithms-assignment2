@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9ef02c1e-d268-49e5-aecf-66704f6f8ee5" name="Changes" comment="Activity Selection algorithm">
-      <change afterPath="$PROJECT_DIR$/src/ActivitySelection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+    <list default="true" id="9ef02c1e-d268-49e5-aecf-66704f6f8ee5" name="Changes" comment="Adding Testcases">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/activity-selection.iml" beforeDir="false" afterPath="$PROJECT_DIR$/activity_20011889.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/HelpingFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/HelpingFunctions.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/activity_20011889.iml" beforeDir="false" afterPath="$PROJECT_DIR$/activity_20011889.iml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -43,39 +39,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "ActivitySelection",
-    "last_opened_file_path": "D:/College/Third Year/First Term/Algorithms/Labs/Assignment2/algorithms-assignment2/activity-selection/out/artifacts/activity_selection_jar",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Artifacts",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;ActivitySelection&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;21&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/College/Third Year/First Term/Algorithms/Labs/Assignment2/algorithms-assignment2/activity-selection/out/artifacts/activity_selection_jar&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Artifacts&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="activity_20011889" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="activity_20011889" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-  </component>
+}</component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -85,7 +71,8 @@
       <option name="presentableId" value="Default" />
       <updated>1702372224232</updated>
       <workItem from="1702372225773" duration="190000" />
-      <workItem from="1702372531677" duration="17923000" />
+      <workItem from="1702372531677" duration="22232000" />
+      <workItem from="1702401944500" duration="1943000" />
     </task>
     <task id="LOCAL-00001" summary="Read the input&#10;Read the input from the file given its absolute path.">
       <created>1702373861525</created>
@@ -115,7 +102,21 @@
       <option name="project" value="LOCAL" />
       <updated>1702396874401</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Saving the result to output file">
+      <created>1702398910847</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1702398910847</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Adding Testcases">
+      <created>1702403903169</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1702403903169</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -125,6 +126,8 @@
     <MESSAGE value="Read the input&#10;Read the input from the file given its absolute path." />
     <MESSAGE value="Changes" />
     <MESSAGE value="Activity Selection algorithm" />
-    <option name="LAST_COMMIT_MESSAGE" value="Activity Selection algorithm" />
+    <MESSAGE value="Saving the result to output file" />
+    <MESSAGE value="Adding Testcases" />
+    <option name="LAST_COMMIT_MESSAGE" value="Adding Testcases" />
   </component>
 </project>
