@@ -18,7 +18,9 @@ public class Main {
 
         int maxProfit = ActivitySelection.getMaxWeightNSquared(activities);
 
+        String outputPath = HelpingFunctions.getNameOfOutputFile(filePath);
 
+        HelpingFunctions.saveOutputInFile(outputPath, maxProfit);
 
     }
 }

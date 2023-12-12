@@ -3,6 +3,8 @@ import java.util.Arrays;
 
 public class HelpingFunctions {
 
+    private final static String ID = "20011889";
+
     public static int[][] getInput(String filePath) {
 
         File inputFile = new File(filePath);
@@ -69,6 +71,24 @@ public class HelpingFunctions {
             int compareFirstElement = Integer.compare(a[0], b[0]);
             return compareFirstElement == 0 ? Integer.compare(a[1], b[1]) : compareFirstElement;
         });
+
+    }
+
+    public static String getNameOfOutputFile(String filePath) {
+
+        return filePath.replace(".in", "_" + ID + ".out");
+
+    }
+
+    public static void saveOutputInFile(String filePath, int value) {
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(filePath)))) {
+            writer.write(String.valueOf(value));
+            System.out.println("Result saved to file successfully.");
+
+        } catch (IOException e) {
+            System.err.println("Error writing in the file: " + e.getMessage());
+        }
 
     }
 
