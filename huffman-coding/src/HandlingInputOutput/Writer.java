@@ -6,16 +6,12 @@ public class Writer {
 
     private FileOutputStream fileOutputStream;
     private BufferedOutputStream bufferedOutputStream;
-    private int bufferSize;
-    private byte[] buffer;
 
-    public Writer (String path, int bufferSize) {
+    public Writer (String path) {
 
         try {
             this.fileOutputStream = new FileOutputStream(path);
             this.bufferedOutputStream = new BufferedOutputStream(this.fileOutputStream);
-            this.bufferSize = bufferSize;
-            this.buffer = new byte[bufferSize];
         }
         catch (Exception e) {
             System.out.println("Error in the Writer: " + e.getMessage());

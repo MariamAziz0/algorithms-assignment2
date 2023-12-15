@@ -41,9 +41,13 @@ public class Reader {
                 return null;
             }
 
-            byte[] chunk = new byte[bytesRead];
-            System.arraycopy(buffer, 0, chunk, 0, bytesRead);
-            return chunk;
+            if (bytesRead < this.bufferSize) {
+                byte[] chunk = new byte[bytesRead];
+                System.arraycopy(buffer, 0, chunk, 0, bytesRead);
+                return chunk;
+            }
+
+            return buffer;
         }
         catch (Exception e) {
             System.out.println("Error in getting chunk of data: " + e.getMessage());
