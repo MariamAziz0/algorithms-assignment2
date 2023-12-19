@@ -48,17 +48,17 @@ public class Compressor {
 
         // Open new Reader to read file from beginning and apply huffman
         this.reader = new Reader(this.inputPath, this.n);
-        String bitCompressed = "";
+        StringBuilder bitCompressed = new StringBuilder();
 
         while ((bytesRead = this.reader.readChunk()) != null) {
             String[] hexRepresentation = ByteToHex.byteArrayToHexStringArray(bytesRead, this.n);
             for (String sequence : hexRepresentation) {
-                bitCompressed += codeWords.get(sequence);
+                bitCompressed.append(codeWords.get(sequence));
             }
 
             if (bitCompressed.length() > 8) {
                 String readyToWrite = bitCompressed.substring(0, (bitCompressed.length() / 8) * 8);
-                bitCompressed = bitCompressed.substring((bitCompressed.length() / 8) * 8);
+                bitCompressed = new StringBuilder(bitCompressed.substring((bitCompressed.length() / 8) * 8));
 
                 byte[] bytesToWrite = ByteToBinary.bitStringToByteArray(readyToWrite);
                 this.writer.writeChunk(bytesToWrite);
@@ -66,8 +66,8 @@ public class Compressor {
         }
 
         // If there is remaining bits to written in separate byte
-        if (!bitCompressed.equals("")) {
-            byte lastByte = ByteToBinary.binaryStringToByteWithTrailingZeros(bitCompressed);
+        if (!bitCompressed.toString().equals("")) {
+            byte lastByte = ByteToBinary.binaryStringToByteWithTrailingZeros(bitCompressed.toString());
             byte[] lastByteArray = {lastByte};
             this.writer.writeChunk(lastByteArray);
         }

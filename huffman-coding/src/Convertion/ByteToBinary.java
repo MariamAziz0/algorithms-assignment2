@@ -12,6 +12,12 @@ public class ByteToBinary {
                 .split(" ");
     }
 
+    public static String byteArrayToBinaryString (byte[] byteArray) {
+        return IntStream.range(0, byteArray.length)
+                .mapToObj(i -> String.format("%8s", Integer.toBinaryString(byteArray[i] & 0xFF)).replace(' ', '0'))
+                .collect(Collectors.joining());
+    }
+
     public static byte[] bitStringToByteArray(String bitString) {
         int length = bitString.length();
         int byteLength = (int) Math.ceil((double) length / 8);
