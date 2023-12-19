@@ -61,9 +61,7 @@ public class Decompressor {
 
         }
 
-        byte[] bytesToBeWritten = ByteToHex.hexStringToByteArray(hexDecompressed.toString());
-
-        return bytesToBeWritten;
+        return ByteToHex.hexStringToByteArray(hexDecompressed.toString());
     }
 
 }
