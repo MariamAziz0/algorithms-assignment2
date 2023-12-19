@@ -32,11 +32,20 @@ public class ByteToBinary {
         return byteArray;
     }
 
-    public static String byteToBinaryString (byte b) {
+    public static String byteToBinaryStringWithLeadingZeros (byte b) {
         return String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
     }
 
-    public static byte binaryStringToByte (String bitString) {
+    public static String byteToBinaryStringWithTrailingZeros (byte b) {
+        return String.format("%-8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
+    }
+
+    public static byte binaryStringToByteWithLeadingZeros (String bitString) {
+        bitString = String.format("%8s", bitString).replace(' ', '0');
+        return (byte) Integer.parseInt(bitString, 2);
+    }
+
+    public static byte binaryStringToByteWithTrailingZeros (String bitString) {
         bitString = String.format("%-8s", bitString).replace(' ', '0');
         return (byte) Integer.parseInt(bitString, 2);
     }
