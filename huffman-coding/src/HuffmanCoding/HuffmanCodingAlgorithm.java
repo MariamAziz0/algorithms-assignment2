@@ -6,10 +6,14 @@ public class HuffmanCodingAlgorithm {
 
     private Map<String, Long> frequencyMap;
     private Map<String, String> codeWords;
+    private long numberBytesOutput;
+    private byte numberBitsInLastByte;
 
     public HuffmanCodingAlgorithm () {
         this.frequencyMap = new HashMap<>();
         this.codeWords = new HashMap<>();
+        this.numberBytesOutput = 0;
+        this.numberBitsInLastByte = 0;
     }
 
     public void updateFrequency (String[] sequences) {
@@ -51,6 +55,7 @@ public class HuffmanCodingAlgorithm {
 
         Node root = priorityQueue.poll();
         this.updateCodeWords(root, "");
+        this.updateNumberOfBytesBits();
 
         return this.codeWords;
     }
@@ -67,4 +72,28 @@ public class HuffmanCodingAlgorithm {
 
     }
 
+    private void updateNumberOfBytesBits () {
+        long allBits = 0;
+        for (Map.Entry<String, String> entry : this.codeWords.entrySet()) {
+            allBits += (entry.getValue().length() * (this.frequencyMap.get(entry.getKey())));
+        }
+        this.numberBytesOutput = (long) Math.ceil(allBits / 8.0);
+        this.numberBitsInLastByte = (byte) (allBits - (allBits / 8) * 8);
+    }
+
+    public long getNumberBytesOutput() {
+        return numberBytesOutput;
+    }
+
+    public byte getNumberBitsInLastByte() {
+        return numberBitsInLastByte;
+    }
+
+    public Map<String, Long> getFrequencyMap() {
+        return frequencyMap;
+    }
+
+    public Map<String, String> getCodeWords() {
+        return codeWords;
+    }
 }
