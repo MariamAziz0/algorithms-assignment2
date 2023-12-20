@@ -28,25 +28,25 @@ public class Decompressor {
         long totalBytesRead = 0;
 
         // This code will work with hex char, if this modified the following code should be modified
+        StringBuilder binary = new StringBuilder();
 
         while ((bytesRead = this.reader.readChunk()) != null) {
             totalBytesRead += bytesRead.length;
 
-            String binary = ByteToBinary.byteArrayToBinaryString(bytesRead);
+            binary.append(ByteToBinary.byteArrayToBinaryString(bytesRead));
 
             if (totalBytesRead == totalBytes && bitsLastByte != 0) {
-                binary = binary.substring(0, binary.length() - (8 - bitsLastByte));
+                binary = new StringBuilder(binary.substring(0, binary.length() - (8 - bitsLastByte)));
             }
 
-            byte[] bytesToBeWritten = getBytesToBeWritten(binary, reversedCode);
-            this.writer.writeChunk(bytesToBeWritten);
+            binary = new StringBuilder(getBytesToBeWritten(binary.toString(), reversedCode));
 
         }
         this.writer.close();
 
     }
 
-    private byte[] getBytesToBeWritten (String binary, Map<String, String> reversedCode) {
+    private String getBytesToBeWritten (String binary, Map<String, String> reversedCode) {
         StringBuilder hexDecompressed = new StringBuilder();
 
         StringBuilder current = new StringBuilder();
@@ -60,8 +60,9 @@ public class Decompressor {
             }
 
         }
+        this.writer.writeChunk(ByteToHex.hexStringToByteArray(hexDecompressed.toString()));
 
-        return ByteToHex.hexStringToByteArray(hexDecompressed.toString());
+        return current.toString();
     }
 
 }
