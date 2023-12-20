@@ -11,6 +11,7 @@ public class Reader {
     private BufferedInputStream bufferedInputStream;
     private byte[] buffer;
     private int bufferSize;
+    private int currentIndex;
 
     public Reader (String path, int bufferSize) {
 
@@ -19,6 +20,7 @@ public class Reader {
             this.bufferedInputStream = new BufferedInputStream(this.fileInputStream);
             this.bufferSize = bufferSize;
             this.buffer = new byte[bufferSize];
+            this.currentIndex = -1;
         }
         catch (Exception e) {
             System.out.println("Error in the Reader: " + e.getMessage());
@@ -30,6 +32,7 @@ public class Reader {
 
         try {
             int bytesRead = bufferedInputStream.read(buffer);
+            this.currentIndex = 0;
 
             if (bytesRead == -1) {
 
@@ -57,6 +60,33 @@ public class Reader {
             return null;
         }
 
+    }
+
+    public byte[] getBytes (int bytes) {
+
+        byte[] result = new byte[bytes];
+
+        if (this.currentIndex == -1 || this.currentIndex >= this.buffer.length) {
+            this.readChunk();
+            currentIndex = 0;
+        }
+
+        if (bytes <= this.buffer.length - this.currentIndex) {
+            System.arraycopy(this.buffer, this.currentIndex, result, 0, bytes);
+            this.currentIndex += bytes;
+        }
+        else {
+            int remainingInBuffer = this.buffer.length - this.currentIndex;
+            System.arraycopy(this.buffer, this.currentIndex, result, 0, remainingInBuffer);
+            this.readChunk();
+            this.currentIndex = 0;
+
+            int remainingToRead = bytes - remainingInBuffer;
+            System.arraycopy(this.buffer, this.currentIndex, result, remainingInBuffer, remainingToRead);
+            this.currentIndex += remainingToRead;
+        }
+
+        return result;
     }
 
 }
