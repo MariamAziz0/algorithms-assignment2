@@ -29,7 +29,6 @@ public class ByteToBinary {
             int end = Math.min(start + 8, length);
 
             String byteSubstring = bitString.substring(start, end);
-//            byteSubstring = String.format("%-8s", byteSubstring).replace(' ', '0');
 
             byte byteValue = (byte) Integer.parseInt(byteSubstring, 2);
             byteArray[i] = byteValue;

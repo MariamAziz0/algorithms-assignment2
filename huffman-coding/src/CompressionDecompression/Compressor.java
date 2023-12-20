@@ -3,6 +3,7 @@ import java.util.*;
 
 import Convertion.ByteToBinary;
 import Convertion.ByteToHex;
+import Convertion.MetaDataConverter;
 import HandlingInputOutput.*;
 import HuffmanCoding.HuffmanCodingAlgorithm;
 
@@ -14,7 +15,6 @@ public class Compressor {
     private String outputPath;
     private int n;
     private HuffmanCodingAlgorithm huffman;
-    // TODO: to be removed
     private Map<String, String> codeWords;
     private long outputBytes;
     private byte bitsInLastByte;
@@ -28,8 +28,6 @@ public class Compressor {
         this.outputPath = HelpingFunctions.getCompressedPath(this.inputPath, this.n);
         this.writer = new Writer(this.outputPath);
         this.huffman = new HuffmanCodingAlgorithm();
-
-        // TODO: to be removed
         this.codeWords = new HashMap<>();
         this.outputBytes = 0;
         this.bitsInLastByte = 0;
@@ -47,6 +45,11 @@ public class Compressor {
 
 //        Map<String, String> codeWords = this.huffman.applyHuffman();
         this.codeWords = this.huffman.applyHuffman();
+        this.outputBytes = this.huffman.getNumberBytesOutput();
+        this.bitsInLastByte = this.huffman.getNumberBitsInLastByte();
+
+
+        this.writeMetaData();
 
 //        System.out.println("After huffman: " + (System.currentTimeMillis() - start) / 1000.0);
 
@@ -80,13 +83,8 @@ public class Compressor {
 
         this.writer.close();
 
-        //TODO: to be removed
-        this.outputBytes = this.huffman.getNumberBytesOutput();
-        this.bitsInLastByte = this.huffman.getNumberBitsInLastByte();
-
     }
 
-    // TODO: to be modified
     public Map<String, String> getReversedCodeWords () {
 
         Map<String, String> reversedCodeWords = new HashMap<>();
@@ -96,6 +94,38 @@ public class Compressor {
 
         return reversedCodeWords;
 
+    }
+
+    private void writeMetaData () {
+        byte[] metaData = new byte[this.bufferSize];
+        int currentIndex = 0;
+        currentIndex = MetaDataConverter.convertMetaDataHeader(this.outputBytes, this.bitsInLastByte, this.codeWords.size(), metaData, currentIndex);
+        Map<String, String> reversedCodeWords = this.getReversedCodeWords();
+
+        for (Map.Entry<String, String> entry : reversedCodeWords.entrySet()) {
+            int totalEntryLength = 9 + (int) Math.ceil(entry.getKey().length() / 8.0) + (int) Math.ceil(entry.getValue().length() / 2.0);
+
+            if (currentIndex + totalEntryLength > this.bufferSize) {
+                byte[] chunk = new byte[currentIndex];
+                System.arraycopy(metaData, 0, chunk, 0, currentIndex);
+                this.writer.writeChunk(chunk);
+                metaData = new byte[this.bufferSize];
+                currentIndex = 0;
+            }
+
+            byte bitsPadded = (byte) (Math.ceil(entry.getKey().length() / 8.0) * 8 - entry.getKey().length());
+            int bytesBit = (int) Math.ceil(entry.getKey().length() / 8.0);
+            int bytesHex = (int) Math.ceil(entry.getValue().length() / 2.0);
+            currentIndex = MetaDataConverter.convertEntry(bitsPadded, bytesBit, bytesHex, entry.getKey(), entry.getValue(), metaData, currentIndex);
+
+        }
+
+        // if currentIndex > 0 there is data to be written
+        if (currentIndex > 0) {
+            byte[] chunk = new byte[currentIndex];
+            System.arraycopy(metaData, 0, chunk, 0, currentIndex);
+            this.writer.writeChunk(chunk);
+        }
     }
 
     // TODO: to be removed
