@@ -9,16 +9,16 @@ public class test {
     public static void main(String[] args) {
         long start = System.currentTimeMillis();
         int bufferSize = 10 * 1024 * 1024;
-        int n = 5;
+//        int n = 5;
 //        String inputPath = "D:\\College\\Third Year\\First Term\\Algorithms\\Labs\\Assignment2\\files\\time\\gbbct10.seq";
 //
 //        Compressor compressor = new Compressor(inputPath, n, bufferSize);
 //        compressor.compress();
-
+////
         long end = System.currentTimeMillis();
-
+//
 //        System.out.println("Time of Compression taken: " + (end - start) / 1000.0);
-
+//
 //        try {
 //            long inputFileSize = Files.size(Paths.get(inputPath));
 //            long outputFileSize = Files.size(Paths.get(HelpingFunctions.getCompressedPath(inputPath, n)));
@@ -29,7 +29,7 @@ public class test {
 //        }
 
 
-//        Reader reader = new Reader("D:\\College\\Third Year\\First Term\\Algorithms\\Labs\\Assignment2\\files\\20011889.1.huffman_test1.txt.hc", bufferSize);
+//        Reader reader = new Reader("D:\\College\\Third Year\\First Term\\Algorithms\\Labs\\Assignment2\\files\\time\\20011889.5.gbbct10.seq.hc", 10*1024*1024 + 50);
 //        byte[] bytes = reader.readChunk();
 //        System.out.println("Read bytes after compression: ");
 //        for (byte b : bytes) {
@@ -43,6 +43,7 @@ public class test {
 //        byte bitsInLAstByte = compressor.getBitsInLastByte();
 //        System.out.println("Total bytes in main: " + totalBytes);
 //        System.out.println("bits in last byte in main: " + bitsInLAstByte);
+//        System.out.println("Main entries: " + reversedCodes.size());
 //        for (Map.Entry<String, String> entry : reversedCodes.entrySet()) {
 //            System.out.println("Main bit:" + entry.getKey() + ", hex: " + entry.getValue());
 //        }

@@ -77,16 +77,16 @@ public class Decompressor {
     }
 
     private void readMetaData () {
-        this.reader = new Reader(this.inputPath, this.bufferSize);
+//        this.reader = new Reader(this.inputPath, 48836262);
 
         this.totalBytes = MetaDataConverter.convertBytesToLong(this.reader.getBytes(8), 0, 7);
-        System.out.println("total bytes: " + totalBytes);
+//        System.out.println("total bytes: " + totalBytes);
 
         this.bitsLastByte = this.reader.getBytes(1)[0];
-        System.out.println("bits in last byte: " + bitsLastByte);
+//        System.out.println("bits in last byte: " + bitsLastByte);
 
         int entries = MetaDataConverter.convertBytesToInt(this.reader.getBytes(4), 0, 3);
-        System.out.println("entries: " + entries);
+//        System.out.println("entries: " + entries);
 
         while (entries > 0) {
 

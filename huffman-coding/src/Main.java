@@ -1,5 +1,11 @@
+import CompressionDecompression.Compressor;
+import CompressionDecompression.Decompressor;
+import HandlingInputOutput.HelpingFunctions;
 import HandlingInputOutput.Reader;
 import HandlingInputOutput.Writer;
+
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * I acknowledge that I am aware of the academic integrity guidelines of this course, and that I worked on this assignment independently without any unauthorized help
@@ -7,23 +13,55 @@ import HandlingInputOutput.Writer;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello world!");
-
-        String path = "C:\\Users\\DELL\\Videos\\Captures\\IMDb_ Lucidchart - Google Chrome 2022-11-01 21-16-19.mp4";
-        String path2 = "C:\\Users\\DELL\\Videos\\Captures\\IMDb_ Lucidchart - Google Chrome 2022-11-01 21-16-19output.mp4";;
-
-        int bufferSize = 1048576;
-        int i = 1;
-        Reader reader = new Reader(path, bufferSize);
-        Writer writer = new Writer(path2);
-        byte[] chunk;
-        while ((chunk = reader.readChunk()) != null) {
-            System.out.println("Reading chunk: " + i);
-            String content = new String(chunk);
-//            System.out.println(content);
-            writer.writeChunk(chunk);
-            System.out.println("Chunk length: " + chunk.length);
-            i++;
+        if (args.length < 1) {
+            System.out.println("please enter the character c or d");
         }
+        String requiredMethod = args[0];
+
+        if (args.length < 2) {
+            System.out.println("please enter the path");
+        }
+        String inputPath = args[1];
+        int n = 0;
+
+        if (requiredMethod.equals("c")) {
+            if(args.length < 3) {
+                System.out.println("please enter the n");
+            }
+            n = Integer.parseInt(args[2]);
+        }
+
+        int bufferSize = 10 * 1024 * 1024;
+
+        if (requiredMethod.equals("c")) {
+            long start = System.currentTimeMillis();
+
+            Compressor compressor = new Compressor(inputPath, n, bufferSize);
+            compressor.compress();
+
+            long end = System.currentTimeMillis();
+
+            System.out.println("Time of Compression taken: " + (end - start) / 1000.0);
+
+            try {
+                long inputFileSize = Files.size(Paths.get(inputPath));
+                long outputFileSize = Files.size(Paths.get(HelpingFunctions.getCompressedPath(inputPath, n)));
+                System.out.println("Compression ratio: " + ((double) outputFileSize / inputFileSize));
+            }
+            catch (Exception e) {
+                System.out.println("Getting the size of the file is not present, the compression ratio can't be computed.");
+            }
+        }
+        else if (requiredMethod.equals("d")) {
+            long start = System.currentTimeMillis();
+
+            Decompressor decompressor = new Decompressor(inputPath, bufferSize);
+
+            decompressor.decompress();
+
+            long end = System.currentTimeMillis();
+            System.out.println("Time of Decompression: " + (end - start) / 1000.0);
+        }
+
     }
 }

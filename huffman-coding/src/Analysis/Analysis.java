@@ -14,7 +14,7 @@ public class Analysis {
         int bufferSize = 10 * 1024 * 1024;
 
         int[] n = {1, 2, 3, 4, 5};
-        String[] fileName = {"gbbct10.seq"};
+        String[] fileName = {"Algorithms - Lectures 7 and 8 (Greedy algorithms).pdf", "gbbct10.seq"};
 
         for (String name : fileName) {
             System.out.println("For the file: " + name + "\n");
