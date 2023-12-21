@@ -61,4 +61,9 @@ public class ByteToHex {
         return (byte) Integer.parseInt(hexString, 16);
     }
 
+    public static String byteArrayToHexString (byte[] byteArray) {
+        return IntStream.range(0, byteArray.length)
+                .mapToObj(i -> String.format("%02X", byteArray[i]))
+                .collect(Collectors.joining());
+    }
 }

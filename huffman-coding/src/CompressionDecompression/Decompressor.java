@@ -42,8 +42,9 @@ public class Decompressor {
         StringBuilder binary = new StringBuilder();
 
         while ((bytesRead = this.reader.readChunk()) != null) {
+//            System.out.println("Read chunk...");
             totalBytesRead += bytesRead.length;
-
+//            System.out.println(bytesRead.length);
             binary.append(ByteToBinary.byteArrayToBinaryString(bytesRead));
 
             if (totalBytesRead == this.totalBytes && this.bitsLastByte != 0) {
@@ -77,49 +78,31 @@ public class Decompressor {
     }
 
     private void readMetaData () {
-        byte[] metaData = this.reader.readChunk();
-        int currentIndex = 0;
 
-        this.totalBytes = MetaDataConverter.convertBytesToLong(metaData, 0, 7);
-        currentIndex += 8;
+        this.totalBytes = MetaDataConverter.convertBytesToLong(this.reader.getBytes(8), 0, 7);
         System.out.println("Decompressor Total bytes: " + this.totalBytes);
 
-        this.bitsLastByte = metaData[currentIndex];
-        currentIndex++;
+        this.bitsLastByte = this.reader.getBytes(1)[0];
         System.out.println("Decompressor Bits in last byte: " + this.bitsLastByte);
 
-        int entries = MetaDataConverter.convertBytesToInt(metaData, currentIndex, currentIndex + 3);
-        currentIndex += 4;
+        int entries = MetaDataConverter.convertBytesToInt(this.reader.getBytes(4), 0, 3);
         System.out.println("Decompressor Entries: " + entries);
 
         while (entries > 0) {
 
-            if (currentIndex == this.bufferSize) {
-                metaData = this.reader.readChunk();
-                currentIndex = 0;
-            }
+            byte bitsPadded = this.reader.getBytes(1)[0];
+            int byteBits = MetaDataConverter.convertBytesToInt(this.reader.getBytes(4), 0, 3);
+            int byteHex = MetaDataConverter.convertBytesToInt(this.reader.getBytes(4), 0, 3);
 
-            // number of bits padded at first byte of bits
-            byte bitsPadded = metaData[currentIndex];
-            currentIndex++;
+            byte[] byteArrayBits = this.reader.getBytes(byteBits);
+            byte[] byteArrayHex = this.reader.getBytes(byteHex);
 
-            // If the meta-data ended before getting the number of bytes of bits
-            if (currentIndex + 3 > this.bufferSize) {
-                byte[] tempIntegerBytes = new byte[4];
-                int tempIndex = 0;
-                for ( ; currentIndex < this.bufferSize ; currentIndex++) {
-                    tempIntegerBytes[tempIndex++] = metaData[currentIndex];
-                }
-                metaData = this.reader.readChunk();
-                currentIndex = 0;
+            String bitString = ByteToBinary.byteArrayToBinaryString(byteArrayBits);
+            bitString = bitString.substring(bitsPadded);
 
-            }
-            else {
-                int bytesBits = MetaDataConverter.convertBytesToInt(metaData, currentIndex, currentIndex + 3);
-                currentIndex += 4;
-            }
-
-
+            String hexString = ByteToHex.byteArrayToHexString(byteArrayHex);
+            this.reversedCode.put(bitString, hexString);
+//            System.out.println("bit string:" + bitString + ", hex string: " + hexString);
 
 
             entries --;

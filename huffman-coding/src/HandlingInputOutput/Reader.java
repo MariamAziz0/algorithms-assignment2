@@ -31,6 +31,14 @@ public class Reader {
     public byte[] readChunk () {
 
         try {
+            // check if there is part in the buffer before reading new buffer
+            if (this.currentIndex > 0 && this.currentIndex < this.buffer.length) {
+                byte[] remaining = new byte[this.buffer.length - this.currentIndex];
+                System.arraycopy(this.buffer, this.currentIndex, remaining, 0, this.buffer.length - this.currentIndex);
+                this.currentIndex = 0;
+                return remaining;
+            }
+
             int bytesRead = bufferedInputStream.read(buffer);
             this.currentIndex = 0;
 
@@ -50,6 +58,7 @@ public class Reader {
             if (bytesRead < this.bufferSize) {
                 byte[] chunk = new byte[bytesRead];
                 System.arraycopy(buffer, 0, chunk, 0, bytesRead);
+                buffer = chunk;
                 return chunk;
             }
 
