@@ -35,11 +35,16 @@ public class Compressor {
 
     public void compress () {
 
-//        long start = System.currentTimeMillis();
+        long start = System.currentTimeMillis(), end = System.currentTimeMillis();
         byte[] bytesRead;
         while ((bytesRead = this.reader.readChunk()) != null) {
             String[] hexRepresentation = ByteToHex.byteArrayToHexStringArray(bytesRead, this.n);
+            end = System.currentTimeMillis();
+//            System.out.println("After converting to string array: " + (System.currentTimeMillis() - start) / 1000.0);
+            start = System.currentTimeMillis();
             this.huffman.updateFrequency(hexRepresentation);
+            end = System.currentTimeMillis();
+//            System.out.println("After frequency: " + (end - start) / 1000.0);
         }
 //        System.out.println("After frequency: " + (System.currentTimeMillis() - start) / 1000.0);
 
