@@ -1,6 +1,7 @@
 package Analysis;
 
 import CompressionDecompression.Compressor;
+import CompressionDecompression.Decompressor;
 import HandlingInputOutput.HelpingFunctions;
 
 import java.nio.file.Files;
@@ -13,7 +14,7 @@ public class Analysis {
         int bufferSize = 10 * 1024 * 1024;
 
         int[] n = {1, 2, 3, 4, 5};
-        String[] fileName = {"Algorithms - Lectures 7 and 8 (Greedy algorithms).pdf", "gbbct10.seq"};
+        String[] fileName = {"gbbct10.seq"};
 
         for (String name : fileName) {
             System.out.println("For the file: " + name + "\n");
@@ -43,8 +44,22 @@ public class Analysis {
 
         }
 
-        for (int i = 0 ; i < n.length ; i++) {
-            
+        for (String name : fileName) {
+            System.out.println("For the file: " + name + "\n");
+            for (int i = 0 ; i < n.length ; i++) {
+                System.out.println("At n = " + n[i]);
+                long start = System.currentTimeMillis();
+
+                String inputPath = directory + name;
+                String outputPath = HelpingFunctions.getCompressedPath(inputPath, n[i]);
+                Decompressor decompressor = new Decompressor(outputPath, bufferSize);
+
+                decompressor.decompress();
+
+                long end = System.currentTimeMillis();
+                System.out.println("Time of Decompression: " + (end - start) / 1000.0);
+                System.out.println("-----------------------------------------------------------------------------------------");
+            }
         }
 
     }

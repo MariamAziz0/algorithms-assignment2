@@ -35,28 +35,18 @@ public class Compressor {
 
     public void compress () {
 
-        long start = System.currentTimeMillis(), end = System.currentTimeMillis();
+        this.reader = new Reader(this.inputPath, this.n);
         byte[] bytesRead;
         while ((bytesRead = this.reader.readChunk()) != null) {
             String[] hexRepresentation = ByteToHex.byteArrayToHexStringArray(bytesRead, this.n);
-            end = System.currentTimeMillis();
-//            System.out.println("After converting to string array: " + (System.currentTimeMillis() - start) / 1000.0);
-            start = System.currentTimeMillis();
             this.huffman.updateFrequency(hexRepresentation);
-            end = System.currentTimeMillis();
-//            System.out.println("After frequency: " + (end - start) / 1000.0);
         }
-//        System.out.println("After frequency: " + (System.currentTimeMillis() - start) / 1000.0);
 
-//        Map<String, String> codeWords = this.huffman.applyHuffman();
         this.codeWords = this.huffman.applyHuffman();
         this.outputBytes = this.huffman.getNumberBytesOutput();
         this.bitsInLastByte = this.huffman.getNumberBitsInLastByte();
 
-
         this.writeMetaData();
-
-//        System.out.println("After huffman: " + (System.currentTimeMillis() - start) / 1000.0);
 
         // Open new Reader to read file from beginning and apply huffman
         this.reader = new Reader(this.inputPath, this.n);
@@ -76,7 +66,6 @@ public class Compressor {
                 this.writer.writeChunk(bytesToWrite);
             }
         }
-//        System.out.println("After compressing: " + (System.currentTimeMillis() - start) / 1000.0);
 
         // If there is remaining bits to written in separate byte
         if (!bitCompressed.toString().equals("")) {
@@ -84,7 +73,6 @@ public class Compressor {
             byte[] lastByteArray = {lastByte};
             this.writer.writeChunk(lastByteArray);
         }
-//        System.out.println("After last byte: " + (System.currentTimeMillis() - start) / 1000.0);
 
         this.writer.close();
 
@@ -121,6 +109,7 @@ public class Compressor {
             byte bitsPadded = (byte) (Math.ceil(entry.getKey().length() / 8.0) * 8 - entry.getKey().length());
             int bytesBit = (int) Math.ceil(entry.getKey().length() / 8.0);
             int bytesHex = (int) Math.ceil(entry.getValue().length() / 2.0);
+
             currentIndex = MetaDataConverter.convertEntry(bitsPadded, bytesBit, bytesHex, entry.getKey(), entry.getValue(), metaData, currentIndex);
 
         }

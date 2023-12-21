@@ -3,19 +3,20 @@ import java.util.stream.*;
 
 public class ByteToBinary {
 
-    public static String[] byteArrayToBinaryStringArray (byte[] byteArray, int n) {
-        int dataLength = n * 8;
-        return IntStream.range(0, byteArray.length)
-                .mapToObj(i -> String.format("%8s", Integer.toBinaryString(byteArray[i] & 0xFF)).replace(' ', '0'))
-                .collect(Collectors.joining())
-                .replaceAll("(.{" + dataLength + "})", "$1 ")
-                .split(" ");
-    }
+    public static String byteArrayToBinaryString(byte[] byteArray) {
+        int length = byteArray.length;
+        int numBits = length * 8;
 
-    public static String byteArrayToBinaryString (byte[] byteArray) {
-        return IntStream.range(0, byteArray.length)
-                .mapToObj(i -> String.format("%8s", Integer.toBinaryString(byteArray[i] & 0xFF)).replace(' ', '0'))
-                .collect(Collectors.joining());
+        StringBuilder binaryString = new StringBuilder(numBits);
+
+        for (int i = 0; i < numBits; i++) {
+            int byteIndex = i / 8;
+            int bitIndex = 7 - (i % 8);
+            int bitValue = (byteArray[byteIndex] >> bitIndex) & 1;
+            binaryString.append(bitValue);
+        }
+
+        return binaryString.toString();
     }
 
     public static byte[] bitStringToByteArray(String bitString) {
@@ -35,19 +36,6 @@ public class ByteToBinary {
         }
 
         return byteArray;
-    }
-
-    public static String byteToBinaryStringWithLeadingZeros (byte b) {
-        return String.format("%8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
-    }
-
-    public static String byteToBinaryStringWithTrailingZeros (byte b) {
-        return String.format("%-8s", Integer.toBinaryString(b & 0xFF)).replace(' ', '0');
-    }
-
-    public static byte binaryStringToByteWithLeadingZeros (String bitString) {
-        bitString = String.format("%8s", bitString).replace(' ', '0');
-        return (byte) Integer.parseInt(bitString, 2);
     }
 
     public static byte binaryStringToByteWithTrailingZeros (String bitString) {

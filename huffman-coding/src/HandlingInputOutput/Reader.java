@@ -91,6 +91,9 @@ public class Reader {
             this.currentIndex = 0;
 
             int remainingToRead = bytes - remainingInBuffer;
+            if (bytes > 10485760) {
+                System.out.println("bigggerrrrrrrrr");
+            }
             System.arraycopy(this.buffer, this.currentIndex, result, remainingInBuffer, remainingToRead);
             this.currentIndex += remainingToRead;
         }

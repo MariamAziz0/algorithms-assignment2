@@ -32,7 +32,6 @@ public class Decompressor {
 
     public void decompress () {
 
-        // TODO: call to read meta data and apply decompressing for the remaining part in decompressing
         this.readMetaData();
 
         byte[] bytesRead;
@@ -78,15 +77,16 @@ public class Decompressor {
     }
 
     private void readMetaData () {
+        this.reader = new Reader(this.inputPath, this.bufferSize);
 
         this.totalBytes = MetaDataConverter.convertBytesToLong(this.reader.getBytes(8), 0, 7);
-        System.out.println("Decompressor Total bytes: " + this.totalBytes);
+        System.out.println("total bytes: " + totalBytes);
 
         this.bitsLastByte = this.reader.getBytes(1)[0];
-        System.out.println("Decompressor Bits in last byte: " + this.bitsLastByte);
+        System.out.println("bits in last byte: " + bitsLastByte);
 
         int entries = MetaDataConverter.convertBytesToInt(this.reader.getBytes(4), 0, 3);
-        System.out.println("Decompressor Entries: " + entries);
+        System.out.println("entries: " + entries);
 
         while (entries > 0) {
 
@@ -102,8 +102,6 @@ public class Decompressor {
 
             String hexString = ByteToHex.byteArrayToHexString(byteArrayHex);
             this.reversedCode.put(bitString, hexString);
-//            System.out.println("bit string:" + bitString + ", hex string: " + hexString);
-
 
             entries --;
         }
