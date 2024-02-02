@@ -87,7 +87,8 @@ public class Reader {
         else {
             int remainingInBuffer = this.buffer.length - this.currentIndex;
             System.arraycopy(this.buffer, this.currentIndex, result, 0, remainingInBuffer);
-            this.readChunk();
+            this.currentIndex += remainingInBuffer;
+            this.buffer = this.readChunk();
             this.currentIndex = 0;
 
             int remainingToRead = bytes - remainingInBuffer;
